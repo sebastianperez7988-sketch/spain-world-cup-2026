@@ -1,6 +1,7 @@
 import requests
 
-API_KEY = "705a3bbaa05643979f0ea5ea3baf5dc2"
+API_KEY = "YOUR_API_KEY_HERE"  # get a free key at football-data.org
+
 headers = {"X-Auth-Token": API_KEY}
 
 url = "https://api.football-data.org/v4/competitions/WC/matches"
