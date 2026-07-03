@@ -1,7 +1,6 @@
 from statsbombpy import sb
 import matplotlib.pyplot as plt
 from mplsoccer import Pitch
-import pandas as pd
 
 events = sb.events(match_id=3857291)
 shots = events[events['type'] == 'Shot'].copy()
@@ -11,7 +10,6 @@ shots['y'] = shots['location'].apply(lambda loc: loc[1])
 
 pitch = Pitch(pitch_type='statsbomb', pitch_color='#0a1628',
               line_color='#4a6080')
-
 fig, ax = pitch.draw(figsize=(12, 8))
 fig.patch.set_facecolor('#0a1628')
 
@@ -21,17 +19,10 @@ for _, shot in shots.iterrows():
     xg = shot['shot_statsbomb_xg']
     outcome = shot['shot_outcome']
     player = shot['player']
-    team = shot['team']
 
-    if outcome == 'Goal':
-        color = '#AA151B'
-        edge = '#FFD700'
-        zorder = 3
-    else:
-        color = 'none'
-        edge = '#AAAAAA'
-        zorder = 2
-
+    color = '#AA151B' if outcome == 'Goal' else 'none'
+    edge = '#FFD700' if outcome == 'Goal' else '#AAAAAA'
+    zorder = 3 if outcome == 'Goal' else 2
     size = max(xg * 1500, 50)
 
     ax.scatter(x, y, s=size, c=color, edgecolors=edge,
